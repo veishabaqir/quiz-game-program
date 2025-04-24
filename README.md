@@ -14,5 +14,3 @@ A simple quiz game program designed to test users' knowledge in various categori
 ## Contributing
 Contributions are welcome! If you'd like to add new features or fix bugs, please submit a pull request.
 
-## License
-This project is released under the MIT License.
