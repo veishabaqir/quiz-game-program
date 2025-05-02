@@ -1,5 +1,3 @@
-# Python Quiz Game
-
 def quiz_game():
     # Dictionary to store questions, options, and answers
     questions = {
@@ -25,26 +23,43 @@ def quiz_game():
         }
     }
 
+    print("🎉 Welcome to the Quiz Game! 🎉")
+    name = input("Enter your name: ").strip()
+    print(f"\nHi {name}! Answer the following questions by typing A, B, C, or D.\n")
+
     score = 0
+    total_questions = len(questions)
 
-    print("Welcome to the Quiz Game!")
-    print("Answer the following questions by typing the letter of the correct option.\n")
-
-    # Iterate through the questions
-    for question, details in questions.items():
-        print(question)
+    for idx, (question, details) in enumerate(questions.items(), start=1):
+        print(f"Q{idx}: {question}")
         for option in details["options"]:
             print(option)
-        answer = input("Your answer: ").strip().upper()
 
+        # Input validation
+        while True:
+            answer = input("Your answer (A/B/C/D): ").strip().upper()
+            if answer in ['A', 'B', 'C', 'D']:
+                break
+            else:
+                print("❌ Invalid input. Please enter A, B, C, or D.")
+
+        # Check the answer
         if answer == details["answer"]:
-            print("Correct!\n")
+            print("✅ Correct!\n")
             score += 1
         else:
-            print(f"Wrong! The correct answer was {details['answer']}.\n")
+            correct_option = next(opt for opt in details["options"] if opt.startswith(details["answer"]))
+            print(f"❌ Wrong! The correct answer was {correct_option}\n")
 
-    # Display the final score
-    print(f"Quiz Over! Your final score is {score}/{len(questions)}.")
+    # Final score summary
+    percentage = (score / total_questions) * 100
+    print(f"🏁 Quiz Over! {name}, your final score is {score}/{total_questions} ({percentage:.2f}%).")
+    if percentage == 100:
+        print("🎉 Perfect score! You're a quiz master!")
+    elif percentage >= 60:
+        print("👍 Great job!")
+    else:
+        print("📘 Keep practicing and you'll get there!")
 
 # Run the quiz game
 if __name__ == "__main__":
